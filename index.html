@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<link rel="shortcut icon" href="http://www.afreecatv.com/afreeca.ico">
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/hls.js/latest/hls.min.js"></script>
+</script>
+  <head>
+    <title>아프니카 청춘TV</title>
+    <meta property="og:image" content="http://www.afreecatv.com/images/common/afreecatv_logo.jpg">
+    <meta name="viewport" content="width=device-width, initial-scale=1">	
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 13px Helvetica, Arial; }
+      #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages li { padding: 5px 10px; }
+      #messages li:nth-child(odd) { background: #eee; }
+      #join {background:#e9a3a3;}
+    </style>
+  </head>
+  <body>
+<div class="container">
+    <div class="header clearfix">
+          <ul class="nav nav-pills pull-right" style="margin-top: 17px;margin-right: 50px;">
+            <li role="presentation" class="active"><a href="#">아프니카</a></li>
+            <li role="presentation"><a href="#">청춘</a></li>
+            <li role="presentation"><a href="#">TV</a></li>
+          </ul>
+        <img src="http://s3.ap-northeast-2.amazonaws.com/blog.aws.com/afneeca.png"/>
+    </div>
+
+    <div class="col-sm-6">
+            <video poster="https://s3.ap-northeast-2.amazonaws.com/blog.aws.com/ready.png" id='video' width=100% height=100%>
+            </video>
+    </div>
+
+    <div class="col-sm-6" style="overflow-y:scroll;height: 270px;border-top: #525856;border: 1px solid #b1b1b1;padding-left: 0px;padding-right: 0px;" id="scroll">
+    <ul id="messages"></ul>
+    </div>
+
+    <div class="row">
+    <div class="col-xs-12 col-sm-11" tyle="vertical-align:middle;">
+    <form action="">
+      <input id="m" style="height: 34px;width: 100%;" autocomplete="on" placeholder="Enter Text" style="height: 34px;" />
+    </div>
+    <div class="col-xs-3 col-sm-1"> 
+	<button class="btn btn-primary">Send</button></input>
+    </div>
+    </div>
+</div>
+</body>
+</html>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  var socket = io();
+  $('form').submit(function(){
+    socket.emit('message', $('#m').val());
+    $('#m').val('');
+    return false;
+  });
+  socket.on('message', function(msg){
+    $('#messages').append($('<li>').text(msg));
+  });
+  socket.on('join', function(msg){
+    $('#messages').append($('<li style="background-color: antiquewhite;">').text(msg));
+  }); 
+  var test=$('#scroll')[0].scrollHeight;
+  
+  window.setInterval(function() {
+  var elem = $('#scroll')[0];
+  elem.scrollTop = elem.scrollHeight;
+}, 100);
+
+  if(Hls.isSupported()) {
+    var video = document.getElementById('video');
+    var hls = new Hls();
+    hls.loadSource('http://d1yyudols20uua.cloudfront.net/app-750b/ngrp:eb64edcd_all/playlist.m3u8');
+
+    hls.attachMedia(video);
+    hls.on(Hls.Events.MANIFEST_PARSED,function() {
+      video.play();
+  });
+ }
+
+</script>
