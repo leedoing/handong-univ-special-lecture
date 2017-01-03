@@ -15,3 +15,6 @@ git clone https://github.com/dailymotion/hls.js.git
 
 ##Reference
 [hls.js](https://github.com/dailymotion/hls.js/tree/master)
+
+##참고
+http://www.slideshare.net/ssuserc5a036/aws-cloud-wowza-cloud-media-platform
