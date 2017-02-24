@@ -10,10 +10,9 @@ AWS EC2, CloudFront / Wowza Media Cloud / node.js(socket.io, hls.js) / Bootstrap
 curl -sl https://rpm.nodesource.com/setup | bash -
 yum install -y nodejs
 yum install -y git
-git clone https://github.com/dailymotion/hls.js.git
 ```
 
-##Reference
+##library
 [hls.js](https://github.com/dailymotion/hls.js/tree/master)
 
 ##참고
