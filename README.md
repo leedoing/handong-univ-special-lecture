@@ -10,6 +10,8 @@ AWS EC2, CloudFront / Wowza Media Cloud / node.js(socket.io, hls.js) / Bootstrap
 curl -sl https://rpm.nodesource.com/setup | bash -
 yum install -y nodejs
 yum install -y git
+git clone https://github.com/leedoing/handong-univ-special-lecture.git
+node /handong-univ-special-lecture/index.js
 ```
 
 ##library
